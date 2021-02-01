@@ -1,4 +1,4 @@
-package com.gzq;
+package com.gzq.queue;
 
 
 /**
