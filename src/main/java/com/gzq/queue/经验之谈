@@ -3,4 +3,5 @@
 3 队列长度公式 (rear+front-maxsize)%maxsize
 4 队列空的判断:front==rear
   队列满的判断:(rear+1)%maxsize == front
+  数字插入队列后rear的改变方式:rear = (rear+1)%maxsize
 5 这里实现的环形队列在满的时候都是留了一个空位置的

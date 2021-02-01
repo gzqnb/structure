@@ -40,7 +40,7 @@ public class CircleQueue {
     public void addElem(int num) {
         isFull();
         circleQueue[rear] = num;
-        rear++;
+        rear = (rear + 1) % maxSize;
     }
 
     public Integer getElem() {
