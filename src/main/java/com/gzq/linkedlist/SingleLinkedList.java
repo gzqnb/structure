@@ -18,6 +18,10 @@ public class SingleLinkedList implements SingleLinkedListDemo {
         this.head = head;
     }
 
+    public Hero getHead() {
+        return head;
+    }
+
     @Override
     public Boolean isEmpty() {
         if (head.next == null)
@@ -92,18 +96,18 @@ public class SingleLinkedList implements SingleLinkedListDemo {
     public void singleLinkedUpdate(Hero hero) {
         Hero tmp = head;
         boolean flag = false;
-        while (true){
-            if(tmp.next == null){
+        while (true) {
+            if (tmp.next == null) {
                 break;
-            }else if(tmp.next.heroNo == hero.heroNo){
+            } else if (tmp.next.heroNo == hero.heroNo) {
                 flag = true;
                 break;
-            }else
+            } else
                 tmp = tmp.next;
         }
-        if(flag){
+        if (flag) {
             tmp.next.heroName = hero.heroName;
-        }else
+        } else
             System.out.println("没有找到要更新的节点");
     }
 
@@ -122,13 +126,63 @@ public class SingleLinkedList implements SingleLinkedListDemo {
         }
     }
 
+    //面试题1：查找出链表的倒数第k个元素
+    public Hero findLastElem(Hero head, int index) {
+        if (index < 0 || (getLength(head) - index) < 0) {
+            throw new RuntimeException("输入参数有误");
+        }
+        Hero tmp = head.next;
+        for (int i = 0; i < (getLength(head) - index); i++) {
+            if (i == (getLength(head) - index) - 1) {
+                tmp = tmp.next;
+                break;
+            }
+            tmp = tmp.next;
+        }
+        return tmp;
+    }
+
+    public int getLength(Hero head) {
+        Hero tmp = head;
+        int length = 0;
+        while (true) {
+            if (tmp.next != null) {
+                length++;
+                tmp = tmp.next;
+            } else
+                break;
+        }
+        return length;
+    }
+
+    //面试题2：反转链表
+    public void reverseLinkedList(Hero head) {
+        if (getLength(head) == 0||getLength(head) == 1){
+            return;
+        }
+        Hero reverseHead = new Hero(0, "");
+        Hero tmp = head.next;
+        Hero next = null;
+        while (tmp != null) {
+            next = tmp.next;
+            tmp.next = reverseHead.next;
+            reverseHead.next = tmp;
+            tmp = next;
+        }
+        head.next = reverseHead.next;
+
+    }
+
     public static void main(String[] args) {
         Hero head = new Hero(0, "");
         SingleLinkedList testLink = new SingleLinkedList(head);
-        testLink.singleLinkedInsert(new Hero(1,"superman"));
-        testLink.singleLinkedInsert(new Hero(2,"superman1"));
-        testLink.singleLinkedInsert(new Hero(4,"superman4"));
-        testLink.singleLinkedInsertByOrder(new Hero(3,"superman3"));
+        testLink.singleLinkedInsert(new Hero(1, "superman"));
+        testLink.singleLinkedInsert(new Hero(2, "superman1"));
+//        testLink.singleLinkedInsert(new Hero(4, "superman4"));
+//        testLink.singleLinkedInsertByOrder(new Hero(3, "superman3"));
+        System.out.println(testLink.getLength(testLink.getHead()));
+//        System.out.println(testLink.findLastElem(testLink.getHead(), 2));
+        testLink.reverseLinkedList(testLink.getHead());
 
 //        testLink.singleLinkedUpdate(new Hero(2,"supermanUpdate"));
 //        testLink.singleLinkedUpdate(new Hero(3,"supermanUpdate"));
